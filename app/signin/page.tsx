@@ -1,8 +1,11 @@
 'use client';
-import { signOut } from "next-auth/react";
+
 import Login from "../components/signin";
 
+import { useSession, signOut } from "next-auth/react";
+
 export default function Signin() {
+  const { data: session } = useSession();
   return (
     <div className="bg-color1 min-h-screen flex flex-col">
       {/* Navbar */}
@@ -14,9 +17,16 @@ export default function Signin() {
           <a href="#" className="hover:text-color2 transition">Contact</a>
         </div>
         <div className="flex space-x-4">
-          <button onClick={() => signOut()} className="bg-color3 text-white px-5 py-2 rounded-lg hover:bg-color2 transition font-semibold">
-            Sign out
-          </button>
+         {
+          session && (
+            <button
+              onClick={() => signOut()}
+              className="bg-color3 text-white px-5 py-2 rounded-lg hover:bg-color2 transition font-semibold"
+            >
+              Logout
+            </button>
+          )
+         }
          
         </div>
       </nav>
