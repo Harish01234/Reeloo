@@ -1,52 +1,35 @@
-export default function SignIn() {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-color1">
-        <div className="bg-color4 p-8 rounded-lg shadow-lg w-full max-w-md text-white">
-          <h2 className="text-3xl font-bold text-center mb-6">Sign In</h2>
-  
-          {/* Username Input */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Username</label>
-            <input
-              type="text"
-              className="w-full p-3 rounded-lg bg-color1 text-white border border-gray-600 focus:border-color3 outline-none"
-              placeholder="Enter your username"
-            />
-          </div>
-  
-          {/* Password Input */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium mb-2">Password</label>
-            <input
-              type="password"
-              className="w-full p-3 rounded-lg bg-color1 text-white border border-gray-600 focus:border-color3 outline-none"
-              placeholder="Enter your password"
-            />
-          </div>
-  
-          {/* Sign In Button */}
-          <button className="w-full bg-color3 text-white py-3 rounded-lg font-semibold hover:bg-color2 transition">
-            Sign In
-          </button>
-  
-          {/* Divider */}
-          <div className="my-6 flex items-center justify-center">
-            <div className="w-1/3 border-b border-gray-500"></div>
-            <span className="mx-4 text-sm text-gray-300">OR</span>
-            <div className="w-1/3 border-b border-gray-500"></div>
-          </div>
-  
-          {/* OAuth Buttons */}
-          <div className="space-y-3">
-            <button className="w-full flex items-center justify-center bg-color2 text-white py-3 rounded-lg hover:bg-color3 transition">
-              <span className="mr-2">🔵</span> Sign in with Google
-            </button>
-            <button className="w-full flex items-center justify-center bg-color3 text-white py-3 rounded-lg hover:bg-color2 transition">
-              <span className="mr-2">🐙</span> Sign in with GitHub
-            </button>
-          </div>
+'use client';
+import { signOut } from "next-auth/react";
+import Login from "../components/signin";
+
+export default function Signin() {
+  return (
+    <div className="bg-color1 min-h-screen flex flex-col">
+      {/* Navbar */}
+      <nav className="w-full bg-color4 text-white p-4 flex justify-between items-center shadow-md fixed top-0 left-0 right-0 z-10">
+        <h1 className="text-3xl font-extrabold tracking-wide">Reeloo</h1>
+        <div className="hidden md:flex space-x-8 text-lg font-medium">
+          <a href="#" className="hover:text-color2 transition">Home</a>
+          <a href="#" className="hover:text-color2 transition">About</a>
+          <a href="#" className="hover:text-color2 transition">Contact</a>
         </div>
+        <div className="flex space-x-4">
+          <button onClick={() => signOut()} className="bg-color3 text-white px-5 py-2 rounded-lg hover:bg-color2 transition font-semibold">
+            Sign out
+          </button>
+         
+        </div>
+      </nav>
+      
+      {/* Main Content */}
+      <div className="flex-1 flex items-center justify-center mt-20">
+        <Login />
       </div>
-    );
-  }
-  
+      
+      {/* Footer */}
+      <footer className="w-full bg-color4 text-white text-center py-4 mt-auto">
+        <p className="text-sm">© 2024 Reeloo. All rights reserved.</p>
+      </footer>
+    </div>
+  );
+}
