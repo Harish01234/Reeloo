@@ -20,6 +20,7 @@ export default function VideoComponent({ video }: { video: IVideo }) {
                 },
               ]}
               controls={video.controls}
+              autoPlay={true}
               className="w-full h-full object-cover"
             />
           </div>

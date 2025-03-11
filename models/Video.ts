@@ -6,6 +6,7 @@ export const VIDEO_DIMENSIONS = {
 } as const;
 
 export interface IVideo {
+    
   _id?: mongoose.Types.ObjectId;
   title: string;
   description: string;
