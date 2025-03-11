@@ -26,7 +26,7 @@ export default function Login() {
         router.push("/login");
       }
 
-      router.push("/dashboard");
+      router.push("/reels");
     } finally {
       setIsLoading(false);
     }
@@ -35,7 +35,7 @@ export default function Login() {
   const handleGithubLogin = async () => {
     setGithubLoading(true);
     try {
-      await signIn("github", { callbackUrl: "/" }).then((res) => {
+      await signIn("github", { callbackUrl: "/reels" }).then((res) => {
         
         
       })
@@ -119,7 +119,7 @@ export default function Login() {
         <p className="text-center text-color4">
           Don&apos;t have an account?{" "}
           <Link 
-            href="/register" 
+            href="/signup" 
             className="font-semibold hover:underline text-color4 hover:text-color3"
           >
             Register
