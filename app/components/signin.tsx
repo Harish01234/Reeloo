@@ -37,6 +37,8 @@ export default function Login() {
     try {
       await signIn("github", { callbackUrl: "/reels" }).then((res) => {
         
+        console.log('github response',res);
+        
         
       })
     } finally {
