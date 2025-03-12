@@ -54,6 +54,32 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider === "github") {
+        try {
+          await connectToDatabase();
+          const existingUser = await UserModel.findOne({ email: user.email });
+    
+          if (!existingUser) {
+            // Use a fixed password "123456" (hashed before saving)
+            const hashedPassword = await bcrypt.hash("123456", 10);
+    
+            // Save new user in MongoDB
+            await UserModel.create({
+              email: user.email,
+              password: hashedPassword,
+            
+              
+            });
+          }
+        } catch (error) {
+          console.error("GitHub SignIn Error:", error);
+          return false;
+        }
+      }
+      return true;
+    },
+
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;

@@ -32,31 +32,16 @@ export default function Signup() {
       setIsLoading(false);
     }
   };
+ 
   const handleGithubSignup = async () => {
     setGithubLoading(true);
     try {
-      const res = await signIn("github", { redirect: false });
-  
-      if (res?.ok) {
-        // Fetch the updated session manually
-        const newSession = await fetch("/api/auth/session").then(res => res.json());
-  
-        if (newSession?.user) {
-          await fetch("/api/auth/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: newSession.user.email,
-              name: newSession.user.name,
-              password: "123456", // Placeholder password
-            }),
-          });
-  
-          router.push("/reels");
-        }
-      }
-    } catch (error) {
-      console.error("GitHub signup error:", error);
+      await signIn("github", { callbackUrl: "/reels" }).then((res) => {
+        
+        console.log('github response',res);
+        
+        
+      })
     } finally {
       setGithubLoading(false);
     }
