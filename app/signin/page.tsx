@@ -6,6 +6,8 @@ import { useSession, signOut } from "next-auth/react";
 
 export default function Signin() {
   const { data: session } = useSession();
+  
+
   return (
     <div className="bg-color1 min-h-screen flex flex-col">
       {/* Navbar */}

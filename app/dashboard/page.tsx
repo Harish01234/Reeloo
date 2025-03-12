@@ -9,6 +9,7 @@ import { IVideo } from "@/models/Video";
 export default function Profile() {
   const { data: session } = useSession();
   const [videos, setVideos] = useState<IVideo[]>([]);
+  console.log("Session Data:", session);
 
   useEffect(() => {
     apiClient.getVideos().then((data) => setVideos(data));
