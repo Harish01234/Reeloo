@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { signIn,useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 export default function Signup() {
-  const { data: session } = useSession();
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -38,17 +38,17 @@ export default function Signup() {
       const res = await signIn("github", { redirect: false });
   
       if (res?.ok) {
-        
+        // Fetch the updated session manually
+        const newSession = await fetch("/api/auth/session").then(res => res.json());
   
-        if (session?.user) {
-          // Send the GitHub user data to your register API
+        if (newSession?.user) {
           await fetch("/api/auth/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              email: session.user.email,
-              name: session.user.name, // If you want to store the name
-              password: "123456", // You can set a placeholder password
+              email: newSession.user.email,
+              name: newSession.user.name,
+              password: "123456", // Placeholder password
             }),
           });
   
@@ -61,6 +61,7 @@ export default function Signup() {
       setGithubLoading(false);
     }
   };
+  
   
 
   return (
@@ -129,7 +130,7 @@ export default function Signup() {
         <p className="text-center text-color4">
           Already have an account?{" "}
           <Link 
-            href="/login" 
+            href="/signin" 
             className="font-semibold hover:underline text-color4 hover:text-color3"
           >
             Log In
