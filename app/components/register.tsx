@@ -38,7 +38,7 @@ export default function Signup() {
       const res = await signIn("github", { redirect: false });
   
       if (res?.ok) {
-        const session = await fetch("/api/auth/session").then((res) => res.json());
+        
   
         if (session?.user) {
           // Send the GitHub user data to your register API
