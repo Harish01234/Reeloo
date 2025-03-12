@@ -32,7 +32,6 @@ export default function Reels({ videos }: ReelsProps) {
                     currentVideo.muted = false;
                     setIsMuted(false);
                 }
-                
                 await currentVideo.play();
             } catch (err) {
                 console.log('Playback failed:', err);
@@ -86,21 +85,24 @@ export default function Reels({ videos }: ReelsProps) {
                         index === currentIndex ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
                     }`}
                 >
-                    <IKVideo
-                        path={video.videoUrl}
-                        transformation={[{ height: "1920", width: "1080" }]}
-                        autoPlay={index === currentIndex}
-                        muted={!hasInteracted && isMuted}
-                        loop
-                        playsInline
-                        className="w-full h-full object-cover"
-                        onLoadedMetadata={(e) => {
-                            videoRefs.current[index] = e.target as HTMLVideoElement;
-                            if (index === 0 && !hasInteracted) {
-                                (e.target as HTMLVideoElement).play().catch(() => null);
-                            }
-                        }}
-                    />
+                    {/* ✅ FIX: Ensures the video is always fully visible on PC & Mobile */}
+                    <div className="relative w-full h-full flex justify-center items-center">
+                        <IKVideo
+                            path={video.videoUrl}
+                            transformation={[{ height: "1920", width: "1080" }]}
+                            autoPlay={index === currentIndex}
+                            muted={!hasInteracted && isMuted}
+                            loop
+                            playsInline
+                            className="w-auto h-full max-h-screen object-contain"
+                            onLoadedMetadata={(e) => {
+                                videoRefs.current[index] = e.target as HTMLVideoElement;
+                                if (index === 0 && !hasInteracted) {
+                                    (e.target as HTMLVideoElement).play().catch(() => null);
+                                }
+                            }}
+                        />
+                    </div>
                 </div>
             ))}
 
