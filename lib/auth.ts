@@ -62,12 +62,12 @@ export const authOptions: NextAuthOptions = {
     
           if (!existingUser) {
             // Use a fixed password "123456" (hashed before saving)
-            const hashedPassword = await bcrypt.hash("123456", 10);
+            const Password = 123456
     
             // Save new user in MongoDB
             await UserModel.create({
               email: user.email,
-              password: hashedPassword,
+              password: Password,
             
               
             });
