@@ -22,9 +22,13 @@ export default function Signup() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+      console.log("res", res);
+      
 
-      if (res.ok) {
-        router.push("/signin");
+      if (res.ok && res.status === 201) {
+        console.log("Signup successful");
+        router.push(`/verification/${email}`);
+
       } else {
         console.error("Signup failed");
       }
@@ -36,7 +40,7 @@ export default function Signup() {
   const handleGithubSignup = async () => {
     setGithubLoading(true);
     try {
-      await signIn("github", { callbackUrl: "/reels" }).then((res) => {
+      await signIn("github").then((res) => {
         
         console.log('github response',res);
         
